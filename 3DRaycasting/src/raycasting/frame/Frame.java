@@ -111,7 +111,7 @@ public class Frame extends JPanel implements ActionListener {
 
 		for (int i = 0; i < rays; i++) {
 			double length = rayLenght[i];
-			length *= Math.cos((-0.5 * FOV + FOV / (double) rays * i) / 360d * Math.PI);
+			length *= Math.cos((-0.5 * FOV + FOV / (double) rays * i) / 180d * Math.PI);
 			int col = (int) (3 * maxRayLenght / (double) length) + 20;
 			if (col > 255) {
 				col = 255;
