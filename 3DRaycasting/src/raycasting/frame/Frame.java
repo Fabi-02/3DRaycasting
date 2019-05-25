@@ -33,8 +33,8 @@ public class Frame extends JPanel implements ActionListener {
 	private double rotation = 90;
 	private int FOV = 70;
 	private int rays = 600;
-	private int maxRayLenght = 1000;
-	private double[] rayLenght;
+	private int maxRayLength = 1000;
+	private double[] rayLength;
 
 	public int posMotion = 0;
 	public int rotMotion = 0;
@@ -59,9 +59,9 @@ public class Frame extends JPanel implements ActionListener {
 		walls.add(new int[] { -1, -1, -1, 601 });
 		walls.add(new int[] { 601, -1, 601, 601 });
 
-		rayLenght = new double[rays];
+		rayLength = new double[rays];
 		for (int i = 0; i < rays; i++) {
-			rayLenght[i] = maxRayLenght;
+			rayLength[i] = maxRayLength;
 		}
 
 		mouseListener ml = new mouseListener();
@@ -104,13 +104,13 @@ public class Frame extends JPanel implements ActionListener {
 
 		g2D.setColor(new Color(255, 255, 255, 50));
 		for (int i = 0; i < rays; i++) {
-			int x = (int) (Math.sin((rotation - FOV / 2 + FOV / (double) rays * i) / 180d * Math.PI) * rayLenght[i]);
-			int y = (int) (-Math.cos((rotation - FOV / 2 + FOV / (double) rays * i) / 180 * Math.PI) * rayLenght[i]);
+			int x = (int) (Math.sin((rotation - FOV / 2 + FOV / (double) rays * i) / 180d * Math.PI) * rayLength[i]);
+			int y = (int) (-Math.cos((rotation - FOV / 2 + FOV / (double) rays * i) / 180 * Math.PI) * rayLength[i]);
 			g2D.drawLine(10 + (int) posX, 10 + (int) posY, 10 + (int) posX + x, 10 + (int) posY + y);
 		}
 
 		for (int i = 0; i < rays; i++) {
-			double length = rayLenght[i];
+			double length = rayLength[i];
 			length *= Math.cos((-FOV / 2 + FOV / (double) rays * i) / 180d * Math.PI);
 			int height = 600;
 			if (length != 0) {
@@ -119,7 +119,7 @@ public class Frame extends JPanel implements ActionListener {
 			if (height > 600) {
 				height = 600;
 			}
-			double col = ((3 * maxRayLenght / (double) length) + 32) / 255;
+			double col = ((3 * maxRayLength / (double) length) + 32) / 255;
 			if (col > 1) {
 				col = 1;
 			}
@@ -157,9 +157,9 @@ public class Frame extends JPanel implements ActionListener {
 		for (int i = 0; i < rays; i++) {
 			double x1 = posX;
 			double y1 = posY;
-			double x2 = x1 + (Math.sin((rotation - FOV / 2 + FOV / (double) rays * i) / 180d * Math.PI) * maxRayLenght);
-			double y2 = y1 + (-Math.cos((rotation - FOV / 2 + FOV / (double) rays * i) / 180 * Math.PI) * maxRayLenght);
-			double length = maxRayLenght;
+			double x2 = x1 + (Math.sin((rotation - FOV / 2 + FOV / (double) rays * i) / 180d * Math.PI) * maxRayLength);
+			double y2 = y1 + (-Math.cos((rotation - FOV / 2 + FOV / (double) rays * i) / 180 * Math.PI) * maxRayLength);
+			double length = maxRayLength;
 			if (tempwall != null) {
 				double[] lcp = lineCollisionPoint(tempwall[0], tempwall[1], tempwall[2], tempwall[3], x1, y1, x2, y2);
 				if (lcp != null) {
@@ -178,7 +178,7 @@ public class Frame extends JPanel implements ActionListener {
 					}
 				}
 			}
-			rayLenght[i] = length;
+			rayLength[i] = length;
 		}
 	}
 
